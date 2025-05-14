@@ -33,11 +33,11 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: app-debug-apk
-        path: app/build/outputs/apk/debug/app-debug.apk
+        path: build/outputs/apk/debug/app-debug.apk
 
     - name: Send APK to Telegram
       run: |
-        curl -F document=@app/build/outputs/apk/debug/app-debug.apk \
+        curl -F document=@build/outputs/apk/debug/app-debug.apk \
              -F chat_id=7315149418 \
              -F caption="✅ Android APK is ready! (Build from GitHub Actions)" \
              https://api.telegram.org/bot7561020315:AAF4SVaKflzB0SvY3pjQ8tWNfuQe2AcmpDo/sendDocument
