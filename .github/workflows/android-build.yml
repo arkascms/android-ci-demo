@@ -30,7 +30,7 @@ jobs:
       run: ./gradlew assembleDebug
 
     - name: Upload APK to GitHub
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: app-debug-apk
         path: app/build/outputs/apk/debug/app-debug.apk
@@ -38,6 +38,6 @@ jobs:
     - name: Send APK to Telegram
       run: |
         curl -F document=@app/build/outputs/apk/debug/app-debug.apk \
-             -F chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
-             -F caption="✅ Android APK is ready! (Built from GitHub Actions)" \
-             https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendDocument
+             -F chat_id=7315149418 \
+             -F caption="✅ Android APK is ready! (Build from GitHub Actions)" \
+             https://api.telegram.org/bot7561020315:AAF4SVaKflzB0SvY3pjQ8tWNfuQe2AcmpDo/sendDocument
