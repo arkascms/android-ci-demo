@@ -17,7 +17,7 @@ jobs:
       uses: actions/setup-java@v3
       with:
         java-version: '17'
-        distribution: 'temurin'  # ✅ توزیع معتبر و رسمی از Adoptium
+        distribution: 'temurin'
         architecture: 'x64'
 
     - name: Grant execute permission for Gradle wrapper
@@ -25,3 +25,19 @@ jobs:
 
     - name: Build with Gradle
       run: ./gradlew build
+
+    - name: Build Debug APK
+      run: ./gradlew assembleDebug
+
+    - name: Upload APK to GitHub
+      uses: actions/upload-artifact@v3
+      with:
+        name: app-debug-apk
+        path: app/build/outputs/apk/debug/app-debug.apk
+
+    - name: Send APK to Telegram
+      run: |
+        curl -F document=@app/build/outputs/apk/debug/app-debug.apk \
+             -F chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+             -F caption="✅ Android APK is ready! (Built from GitHub Actions)" \
+             https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendDocument
