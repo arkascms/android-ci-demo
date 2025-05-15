@@ -35,6 +35,9 @@ jobs:
         name: app-debug-apk
         path: build/outputs/apk/debug/app-debug.apk
 
+    - name: List APK files
+      run: find . -name "*.apk"
+
     - name: Send APK to Telegram
       run: |
         curl -F document=@build/outputs/apk/debug/app-debug.apk \
